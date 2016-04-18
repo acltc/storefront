@@ -12,7 +12,8 @@ end
 def new
 end
 def create
-  @product = Product.create(id: params[:id], name: params[:name], price: params[:price], image: params[:image], description: params[:description], rating: params[:rating])
+  @product = Product.new(id: params[:id], name: params[:name], price: params[:price], image: params[:image], description: params[:description], rating: params[:rating])
+  @product.save
   flash[:success] = "Taco made!"
   redirect_to "/products/#{@product.id}"
 end
@@ -23,7 +24,8 @@ end
 
 def update
   @product = Product.find_by(id: params[:id])
-  @product.update(id: params[:id], name: params[:name], price: params[:price], image: params[:image], description: params[:description], rating: params[:rating])
+  @product.assign_attributes(id: params[:id], name: params[:name], price: params[:price], image: params[:image], description: params[:description], rating: params[:rating])
+  @product.save
   flash[:success] = "This taco has been updated!"
   redirect_to "/products/#{@product.id}"
 end
